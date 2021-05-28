@@ -196,12 +196,23 @@ window.addEventListener('DOMContentLoaded', () => {
         return await res.json();
     };
 
-    getResource('http://localhost:3000/menu')
-        .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => {
-                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-            });
+    // Получение и вставка карточек с помощью библиотеки axios
+
+    axios.get('http://localhost:3000/menu')
+    .then(data => {
+        data.data.forEach(({img, altimg, title, descr, price}) => {
+        new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
         });
+    });
+
+    // Первый способ получения и вставки карточек на сайт
+
+    // getResource('http://localhost:3000/menu')
+    //     .then(data => {
+            // data.forEach(({img, altimg, title, descr, price}) => {
+            //     new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+            // });
+    //     });
     
     // Второй способ получения и вставки карточек на сайт    
 
@@ -308,9 +319,5 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 40000);
     }
-
-    fetch('http://localhost:3000/menu')
-        .then(data => data.json())
-        .then(res => console.log(res));
 });
 
